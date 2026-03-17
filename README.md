@@ -25,7 +25,6 @@ The project is being built incrementally:
 | Language | TypeScript |
 | Bundler | Vite |
 | Diagramming | GoJS 3.x |
-| Styling | CSS / Tailwind (planned) |
 
 ---
 
