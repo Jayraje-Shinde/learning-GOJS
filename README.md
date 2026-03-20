@@ -1,110 +1,73 @@
-# gojs-data-dictionary
+# React + TypeScript + Vite
 
-> Learning and implementing interactive ER diagrams and data dictionary visualizations using **GoJS** with a **React + TypeScript + Vite** stack.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🎯 Purpose
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-This repository is a hands-on learning ground for building a **data dictionary frontend** — a tool that visualizes database schemas as interactive, draggable ER diagrams. The end goal is to integrate this with a real backend that serves table metadata, relationships, and column definitions.
+## React Compiler
 
-The project is being built incrementally:
-- understand GoJS core concepts (Diagram, Model, Templates)
-- render basic nodes and links
-- build styled table nodes with column rows
-- draw FK/PK relationships as ER links
-- wire up real backend data when the API is ready
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
----
+## Expanding the ESLint configuration
 
-## 🛠 Tech Stack
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-| Layer | Technology |
-|---|---|
-| Framework | React 19 |
-| Language | TypeScript |
-| Bundler | Vite |
-| Diagramming | GoJS 3.x |
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
----
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-## 📁 Project Structure
-
-```
-src/
-├── components/       # GoJS diagram components
-├── types/            # TypeScript interfaces (TableNode, Column, Relationship)
-├── data/             # Mock data simulating backend API responses
-├── hooks/            # Custom hooks (e.g. useDiagram)
-├── App.tsx
-└── main.tsx
-```
-
----
-
-## 🚀 Getting Started
-
-```bash
-# clone the repo
-git clone https://github.com/Jayraje-Shinde/gojs-data-dictionary.git
-cd gojs-data-dictionary
-
-# install dependencies
-npm install
-
-# start dev server
-npm run dev
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-Requires **Node.js 18+**.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
----
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## 📚 GoJS Concepts Covered
-
-Progress is tracked as concepts are implemented:
-
-- [ ] Diagram setup and div binding
-- [ ] `GraphLinksModel` with nodes and links
-- [ ] Custom node templates
-- [ ] Column-level item templates inside nodes
-- [ ] FK / PK visual badges
-- [ ] Link routing and relationship labels
-- [ ] Drag-to-reposition nodes
-- [ ] Zoom and pan controls
-- [ ] Selection and highlight states
-- [ ] Feeding live backend data into the model
-
----
-
-## 🔌 Backend Integration (Planned)
-
-The backend will expose REST endpoints that return table schemas and relationships. The expected payload shape is already typed in `src/types/index.ts`:
-
-```ts
-interface DataDictionaryPayload {
-  tables: TableNode[];
-  relationships: Relationship[];
-}
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-Once routes are available, `mockData.ts` will be swapped out for a real `fetch()` call — no other changes needed.
-
----
-
-## 🗺 Roadmap
-
-- [x] Project scaffold (Vite + React + TS)
-- [x] GoJS installed and verified
-- [ ] First diagram render (two nodes, one link)
-- [ ] Styled table node template
-- [ ] ER diagram with mock e-commerce schema
-- [ ] Search / filter tables panel
-- [ ] Backend API integration
-- [ ] Export diagram as PNG / SVG
-
----
-
-## 📄 License
-
-MIT
