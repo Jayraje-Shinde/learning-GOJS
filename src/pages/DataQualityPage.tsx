@@ -1,17 +1,13 @@
 import {
   Box, Typography, LinearProgress, Chip,
 } from "@mui/material";
-import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import WarningIcon from "@mui/icons-material/Warning";
-import ErrorIcon from "@mui/icons-material/Error";
 import PageHeader from "../components/layout/PageHeader";
 import { mockTables } from "../data/mockData";
 
 const getStatus = (val: number) => {
-  if (val >= 95) return { label: "Healthy", color: "#34d399", Icon: CheckCircleIcon };
-  if (val >= 75) return { label: "Warning", color: "#f59e0b", Icon: WarningIcon };
-  return { label: "Critical", color: "#f87171", Icon: ErrorIcon };
+  if (val >= 95) return { label: "Healthy", color: "#34d399" };
+  if (val >= 75) return { label: "Warning", color: "#f59e0b" };
+  return { label: "Critical", color: "#f87171"};
 };
 
 const metrics = [
@@ -34,8 +30,6 @@ export default function DataQualityPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
-        icon={<HealthAndSafetyIcon />}
-        iconColor="#fb923c"
         title="Data Quality"
         subtitle="Completeness · Consistency · Freshness · Uniqueness"
       />
@@ -81,7 +75,7 @@ export default function DataQualityPage() {
               >
                 {/* Table header */}
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                  <status.Icon sx={{ fontSize: 16, color: status.color }} />
+                 
                   <Typography sx={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace" }}>
                     {table.schema}.{table.name}
                   </Typography>

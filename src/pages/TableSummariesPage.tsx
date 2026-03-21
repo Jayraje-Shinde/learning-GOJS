@@ -1,11 +1,7 @@
 import { useState } from "react";
 import {
-  Box, Typography, Chip, LinearProgress, Divider, TextField, InputAdornment,
+  Box, Typography, Chip, LinearProgress, TextField, InputAdornment,
 } from "@mui/material";
-import TableChartIcon from "@mui/icons-material/TableChart";
-import SearchIcon from "@mui/icons-material/Search";
-import KeyIcon from "@mui/icons-material/Key";
-import LinkIcon from "@mui/icons-material/Link";
 import PageHeader from "../components/layout/PageHeader";
 import { mockTables } from "../data/mockData";
 
@@ -25,8 +21,6 @@ export default function TableSummariesPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
-        icon={<TableChartIcon />}
-        iconColor="#60a5fa"
         title="Table Summaries"
         subtitle="Column-level schema and human-readable data dictionary"
       />
@@ -53,7 +47,6 @@ export default function TableSummariesPage() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ fontSize: 16, color: "#4f5a8a" }} />
                   </InputAdornment>
                 ),
                 sx: {
@@ -149,11 +142,8 @@ export default function TableSummariesPage() {
                   "&:hover": { bgcolor: "#1e2235" },
                 }}
               >
-                {/* Badge */}
-                <Box>
-                  {col.isPK && <KeyIcon sx={{ fontSize: 14, color: "#f59e0b" }} />}
-                  {col.isFK && <LinkIcon sx={{ fontSize: 14, color: "#34d399" }} />}
-                </Box>
+            
+              
                 {/* Name */}
                 <Typography sx={{ fontSize: 12, color: "#e2e8f0", fontFamily: "monospace" }}>
                   {col.name}

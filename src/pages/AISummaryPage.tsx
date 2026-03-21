@@ -1,8 +1,6 @@
 import {
-  Box, Typography, LinearProgress, Chip, Divider, Grid,
+  Box, Typography, LinearProgress, Chip, 
 } from "@mui/material";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import PageHeader from "../components/layout/PageHeader";
 import { mockAISummary } from "../data/mockData";
 
@@ -35,8 +33,6 @@ export default function AISummaryPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
-        icon={<AutoAwesomeIcon />}
-        iconColor="#a78bfa"
         title="AI Business Summary"
         subtitle="Auto-generated schema analysis and business context"
       />
@@ -92,7 +88,6 @@ export default function AISummaryPage() {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1.5 }}>
-            <AutoAwesomeIcon sx={{ fontSize: 16, color: "#a78bfa" }} />
             <Typography sx={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace" }}>
               {s.title}
             </Typography>
@@ -117,7 +112,6 @@ export default function AISummaryPage() {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-            <TipsAndUpdatesIcon sx={{ fontSize: 16, color: "#f59e0b" }} />
             <Typography sx={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace" }}>
               Key Insights
             </Typography>
