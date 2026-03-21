@@ -4,4 +4,4 @@
 body { overflow: hidden; }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #0f1117; }
-::-webkit-scrollbar-thumb { background: #2e3250; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #2e3250; }
