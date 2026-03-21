@@ -1,7 +1,6 @@
 import {
   Box, Typography, LinearProgress, Chip,
 } from "@mui/material";
-import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WarningIcon from "@mui/icons-material/Warning";
 import ErrorIcon from "@mui/icons-material/Error";
@@ -34,8 +33,6 @@ export default function DataQualityPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
-        icon={<HealthAndSafetyIcon />}
-        iconColor="#fb923c"
         title="Data Quality"
         subtitle="Completeness · Consistency · Freshness · Uniqueness"
       />
@@ -49,7 +46,7 @@ export default function DataQualityPage() {
               key={m.label}
               sx={{
                 flex: 1, bgcolor: "#1a1d27", border: "1px solid #2e3250",
-                borderRadius: 2, p: 2,
+                p: 2,
               }}
             >
               <Typography sx={{ fontSize: 12, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace", mb: 0.3 }}>
@@ -75,7 +72,6 @@ export default function DataQualityPage() {
                 sx={{
                   bgcolor: "#1a1d27",
                   border: "1px solid #2e3250",
-                  borderRadius: 2,
                   p: 2.5,
                 }}
               >
@@ -120,9 +116,9 @@ export default function DataQualityPage() {
                           variant="determinate"
                           value={score}
                           sx={{
-                            height: 5, borderRadius: 2,
+                            height: 5, 
                             bgcolor: "#0f1117",
-                            "& .MuiLinearProgress-bar": { bgcolor: s.color, borderRadius: 2 },
+                            "& .MuiLinearProgress-bar": { bgcolor: s.color },
                           }}
                         />
                       </Box>

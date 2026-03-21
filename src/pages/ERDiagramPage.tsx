@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Box, Typography } from "@mui/material";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import { Box } from "@mui/material";
 import * as go from "gojs";
 import PageHeader from "../components/layout/PageHeader";
 import { mockTables, mockRelationships } from "../data/mockData";
@@ -119,8 +118,6 @@ export default function ERDiagramPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
-        icon={<AccountTreeIcon />}
-        iconColor="#34d399"
         title="ER Diagram"
         subtitle="Interactive entity-relationship diagram — drag to reposition"
       />

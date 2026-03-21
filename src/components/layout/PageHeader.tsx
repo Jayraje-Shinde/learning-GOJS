@@ -2,14 +2,12 @@ import { Box, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
 interface PageHeaderProps {
-  icon: ReactNode;
-  iconColor: string;
   title: string;
   subtitle: string;
   actions?: ReactNode;
 }
 
-export default function PageHeader({ icon, iconColor, title, subtitle, actions }: PageHeaderProps) {
+export default function PageHeader({ title, subtitle, actions }: PageHeaderProps) {
   return (
     <Box
       sx={{
@@ -24,7 +22,6 @@ export default function PageHeader({ icon, iconColor, title, subtitle, actions }
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-        <Box sx={{ color: iconColor, display: "flex" }}>{icon}</Box>
         <Box>
           <Typography
             sx={{
