@@ -21,26 +21,14 @@ const NAV_ITEMS = [
 
 export default function ShellLayout() {
   const [activePage, setActivePage] = useState("ai");
-  const [tableDrilldown, setTableDrilldown] = useState<{ tableName: string; columnName?: string } | null>(null);
-
-  const navigateToTableColumn = (tableName: string, columnName?: string) => {
-    setActivePage("tables");
-    setTableDrilldown({ tableName, columnName });
-  };
 
   const renderPage = () => {
     switch (activePage) {
-      case "ai":      return <AISummaryPage onNavigateToTableColumn={navigateToTableColumn} />;
+      case "ai":      return <AISummaryPage />;
       case "er":      return <ERDiagramPage />;
-      case "tables":
-        return (
-          <TableSummariesPage
-            drilldown={tableDrilldown}
-            onDrilldownConsumed={() => setTableDrilldown(null)}
-          />
-        );
+      case "tables":  return <TableSummariesPage />;
       case "quality": return <DataQualityPage />;
-      default:        return <AISummaryPage onNavigateToTableColumn={navigateToTableColumn} />;
+      default:        return <AISummaryPage />;
     }
   };
 

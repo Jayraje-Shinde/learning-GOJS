@@ -6,10 +6,6 @@ import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 import PageHeader from "../components/layout/PageHeader";
 import { mockAISummary } from "../data/mockData";
 
-interface AISummaryPageProps {
-  onNavigateToTableColumn?: (tableName: string, columnName?: string) => void;
-}
-
 const StatCard = ({
   label, value, color,
 }: {
@@ -33,15 +29,8 @@ const StatCard = ({
   </Box>
 );
 
-export default function AISummaryPage({ onNavigateToTableColumn }: AISummaryPageProps) {
+export default function AISummaryPage() {
   const s = mockAISummary;
-
-  const getInsightAction = (index: number) => {
-    if (index === 1) {
-      return () => onNavigateToTableColumn?.("products", "description");
-    }
-    return null;
-  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
@@ -150,23 +139,7 @@ export default function AISummaryPage({ onNavigateToTableColumn }: AISummaryPage
                     {i + 1}
                   </Typography>
                 </Box>
-                <Typography
-                  onClick={getInsightAction(i) ?? undefined}
-                  sx={{
-                    fontSize: 13,
-                    color: getInsightAction(i) ? "#93c5fd" : "#9ca3b8",
-                    fontFamily: "monospace",
-                    lineHeight: 1.6,
-                    cursor: getInsightAction(i) ? "pointer" : "default",
-                    textDecoration: getInsightAction(i) ? "underline" : "none",
-                    textDecorationColor: getInsightAction(i) ? "#60a5fa" : "transparent",
-                    "&:hover": getInsightAction(i)
-                      ? {
-                        color: "#bfdbfe",
-                      }
-                      : undefined,
-                  }}
-                >
+                <Typography sx={{ fontSize: 13, color: "#9ca3b8", fontFamily: "monospace", lineHeight: 1.6 }}>
                   {insight}
                 </Typography>
               </Box>

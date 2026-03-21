@@ -1,15 +1,5 @@
-import {
-  Box,
-  Typography,
-  IconButton,
-  Tooltip,
-  Snackbar,
-  Alert,
-} from "@mui/material";
-import DataObjectIcon from "@mui/icons-material/DataObject";
-import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import TableViewIcon from "@mui/icons-material/TableView";
-import { useState, type ReactNode } from "react";
+import { Box, Typography } from "@mui/material";
+import type { ReactNode } from "react";
 
 interface PageHeaderProps {
   title: string;
