@@ -12,10 +12,10 @@ import DataQualityPage from "../../pages/DataQualityPage";
 const DRAWER_WIDTH = 240;
 
 const NAV_ITEMS = [
-  { id: "ai",      label: "AI Summary",         color: "#a78bfa" },
+  { id: "ai",      label: "AI Summary",           color: "#a78bfa" },
   { id: "er",      label: "ER Diagram",           color: "#34d399" },
-  { id: "tables",  label: "Table Summaries",        color: "#60a5fa" },
-  { id: "quality", label: "Data Quality",      color: "#fb923c" },
+  { id: "tables",  label: "Table Summaries",       color: "#60a5fa" },
+  { id: "quality", label: "Data Quality",     color: "#fb923c" },
 ];
 
 export default function ShellLayout() {
@@ -72,6 +72,7 @@ export default function ShellLayout() {
             sx={{
               bgcolor: "#1a1d27",
               border: "1px solid #2e3250",
+              borderRadius: 2,
               px: 1.5,
               py: 1,
             }}
@@ -100,12 +101,15 @@ export default function ShellLayout() {
                 <ListItemButton
                   onClick={() => setActivePage(item.id)}
                   sx={{
+                    borderRadius: 2,
                     mb: 0.5,
                     bgcolor: active ? "#1a1d27" : "transparent",
                     border: active ? `1px solid #2e3250` : "1px solid transparent",
                     "&:hover": { bgcolor: "#1a1d27" },
                   }}
                 >
+                 
+               
                   <ListItemText
                     primary={item.label}
                     primaryTypographyProps={{
@@ -120,6 +124,7 @@ export default function ShellLayout() {
                       sx={{
                         width: 4,
                         height: 4,
+                        borderRadius: "50%",
                         bgcolor: item.color,
                       }}
                     />
@@ -133,7 +138,7 @@ export default function ShellLayout() {
         {/* Bottom status */}
         <Box sx={{ px: 2, py: 2, borderTop: "1px solid #1e2235" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box sx={{ width: 6, height: 6, bgcolor: "#34d399" }} />
+            <Box sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: "#34d399" }} />
             <Typography sx={{ fontSize: 11, color: "#4f5a8a", fontFamily: "monospace" }}>
               AI Agent Ready
             </Typography>

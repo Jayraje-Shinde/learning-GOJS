@@ -1,5 +1,5 @@
 import {
-  Box, Typography, LinearProgress, Chip
+  Box, Typography, LinearProgress, Chip, Divider, Grid,
 } from "@mui/material";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
@@ -15,7 +15,7 @@ const StatCard = ({
     sx={{
       bgcolor: "#1a1d27",
       border: "1px solid #2e3250",
-      
+      borderRadius: 2,
       p: 2.5,
       flex: 1,
     }}
@@ -35,6 +35,8 @@ export default function AISummaryPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
+        icon={<AutoAwesomeIcon />}
+        iconColor="#a78bfa"
         title="AI Business Summary"
         subtitle="Auto-generated schema analysis and business context"
       />
@@ -54,7 +56,7 @@ export default function AISummaryPage() {
           sx={{
             bgcolor: "#1a1d27",
             border: "1px solid #2e3250",
-            
+            borderRadius: 2,
             p: 2.5,
             mb: 3,
           }}
@@ -72,8 +74,9 @@ export default function AISummaryPage() {
             value={s.dataHealth}
             sx={{
               height: 8,
+              borderRadius: 4,
               bgcolor: "#0f1117",
-              "& .MuiLinearProgress-bar": { bgcolor: "#fb923c"},
+              "& .MuiLinearProgress-bar": { bgcolor: "#fb923c", borderRadius: 4 },
             }}
           />
         </Box>
@@ -83,7 +86,7 @@ export default function AISummaryPage() {
           sx={{
             bgcolor: "#1a1d27",
             border: "1px solid #2e3250",
-            
+            borderRadius: 2,
             p: 2.5,
             mb: 3,
           }}
@@ -109,7 +112,7 @@ export default function AISummaryPage() {
           sx={{
             bgcolor: "#1a1d27",
             border: "1px solid #2e3250",
-            
+            borderRadius: 2,
             p: 2.5,
           }}
         >
@@ -126,6 +129,7 @@ export default function AISummaryPage() {
                   sx={{
                     width: 20,
                     height: 20,
+                    borderRadius: 1,
                     bgcolor: "#0f1117",
                     border: "1px solid #2e3250",
                     display: "flex",

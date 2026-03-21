@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   Box, Typography, Chip, LinearProgress, Divider, TextField, InputAdornment,
 } from "@mui/material";
+import TableChartIcon from "@mui/icons-material/TableChart";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyIcon from "@mui/icons-material/Key";
 import LinkIcon from "@mui/icons-material/Link";
@@ -24,6 +25,8 @@ export default function TableSummariesPage() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
       <PageHeader
+        icon={<TableChartIcon />}
+        iconColor="#60a5fa"
         title="Table Summaries"
         subtitle="Column-level schema and human-readable data dictionary"
       />
@@ -107,6 +110,7 @@ export default function TableSummariesPage() {
             sx={{
               bgcolor: "#1a1d27",
               border: "1px solid #2e3250",
+              borderRadius: 2,
               overflow: "hidden",
             }}
           >
@@ -174,11 +178,11 @@ export default function TableSummariesPage() {
                     variant="determinate"
                     value={col.completeness}
                     sx={{
-                      flex: 1, height: 4, 
+                      flex: 1, height: 4, borderRadius: 2,
                       bgcolor: "#0f1117",
                       "& .MuiLinearProgress-bar": {
                         bgcolor: col.completeness > 90 ? "#34d399" : col.completeness > 70 ? "#f59e0b" : "#f87171",
-                        
+                        borderRadius: 2,
                       },
                     }}
                   />
