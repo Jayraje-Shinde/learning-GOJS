@@ -64,6 +64,6 @@ export default function PageHeader({ title, subtitle, actions }: PageHeaderProps
           {toastMessage}
         </Alert>
       </Snackbar>
-    </>
+    <Box />
   );
 }
