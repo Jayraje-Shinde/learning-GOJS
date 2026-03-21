@@ -135,6 +135,7 @@ export default function TableSummariesPage() {
                   gridTemplateColumns: "24px 1fr 120px 60px 120px",
                   gap: 2,
                   px: 2,
+						mx : 2,
                   py: 1.2,
                   alignItems: "center",
                   borderBottom: i < table.columns.length - 1 ? "1px solid #1e2235" : "none",
@@ -149,7 +150,7 @@ export default function TableSummariesPage() {
                   {col.name}
                 </Typography>
                 {/* Type */}
-                <Typography sx={{ fontSize: 11, color: "#818cf8", fontFamily: "monospace" }}>
+                <Typography sx={{ fontSize: 11, mx: 10, color: "#818cf8", fontFamily: "monospace" }}>
                   {col.type}
                 </Typography>
                 {/* Nullable */}
