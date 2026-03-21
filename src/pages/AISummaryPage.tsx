@@ -1,8 +1,9 @@
 import {
-  Box, Typography, LinearProgress, Chip, 
+  Box, Typography, LinearProgress, Chip, Button, TextField,
 } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import PageHeader from "../components/layout/PageHeader";
-import { mockAISummary } from "../data/mockData";
+import { mockAISummary, mockChatBot } from "../data/mockData";
 
 const StatCard = ({
   label, value, color,
@@ -27,8 +28,46 @@ const StatCard = ({
   </Box>
 );
 
-export default function AISummaryPage() {
+type AISummaryPageProps = {
+  onOpenTableColumn?: (tableName: string, columnName?: string) => void;
+};
+
+export default function AISummaryPage({ onOpenTableColumn }: AISummaryPageProps) {
   const s = mockAISummary;
+  const [query, setQuery] = useState("");
+  const [messages, setMessages] = useState<Array<{ role: "user" | "bot"; text: string }>>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const insightActions: Record<number, { tableName: string; columnName?: string; cta: string }> = {
+    0: { tableName: "orders", cta: "Open orders table" },
+    1: { tableName: "products", columnName: "description", cta: "Open products.description" },
+    2: { tableName: "categories", columnName: "parent_id", cta: "Open categories.parent_id" },
+    3: { tableName: "order_items", columnName: "unit_price", cta: "Open order_items.unit_price" },
+  };
+
+  const sendQuery = () => {
+    const normalizedInput = query.trim();
+    if (!normalizedInput) return;
+
+    const matchedSuggestion = mockChatBot.suggestions.find(
+      (item) => item.toLowerCase() === normalizedInput.toLowerCase()
+    );
+
+    const response = matchedSuggestion
+      ? mockChatBot.responses[matchedSuggestion]
+      : "This prototype responds to suggested schema questions. Select one of the suggested prompts for a calibrated answer based on the current mock dataset.";
+
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", text: normalizedInput },
+      { role: "bot", text: response },
+    ]);
+    setQuery("");
+  };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
@@ -140,8 +179,137 @@ export default function AISummaryPage() {
                 <Typography sx={{ fontSize: 13, color: "#9ca3b8", fontFamily: "monospace", lineHeight: 1.6 }}>
                   {insight}
                 </Typography>
+                {insightActions[i] && (
+                  <Button
+                    size="small"
+                    onClick={() => onOpenTableColumn?.(insightActions[i].tableName, insightActions[i].columnName)}
+                    sx={{
+                      ml: "auto",
+                      minWidth: "fit-content",
+                      whiteSpace: "nowrap",
+                      fontSize: 10,
+                      textTransform: "none",
+                      color: "#60a5fa",
+                      border: "1px solid #2e3250",
+                      bgcolor: "#0f1117",
+                      "&:hover": { bgcolor: "#1e2235" },
+                    }}
+                  >
+                    {insightActions[i].cta}
+                  </Button>
+                )}
               </Box>
             ))}
+          </Box>
+        </Box>
+
+        {/* Schema Intelligence Chatbot */}
+        <Box
+          sx={{
+            bgcolor: "#1a1d27",
+            border: "1px solid #2e3250",
+            borderRadius: 2,
+            p: 2.5,
+            mt: 3,
+            minHeight: 420,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography sx={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace", mb: 1.5 }}>
+            Schema Intelligence Chatbot (Prototype)
+          </Typography>
+
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 1.5 }}>
+            {mockChatBot.suggestions.map((suggestion) => (
+              <Chip
+                key={suggestion}
+                label={suggestion}
+                onClick={() => setQuery(suggestion)}
+                sx={{
+                  fontSize: 10,
+                  color: "#a5b4fc",
+                  bgcolor: "#1e2235",
+                  border: "1px solid #2e3250",
+                  "&:hover": { bgcolor: "#242b45" },
+                }}
+              />
+            ))}
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
+              flex: 1,
+              minHeight: 220,
+              overflow: "auto",
+              mb: 1.5,
+              pr: 0.5,
+            }}
+          >
+            {messages.length === 0 && (
+              <Typography sx={{ fontSize: 12, color: "#7c87a6", fontFamily: "monospace" }}>
+                Select a suggested question, then press Send to view a schema-aware response.
+              </Typography>
+            )}
+            {messages.map((msg, idx) => (
+              <Box
+                key={`${msg.role}-${idx}`}
+                sx={{
+                  alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
+                  maxWidth: "86%",
+                  px: 1.2,
+                  py: 0.9,
+                  borderRadius: 1.5,
+                  bgcolor: msg.role === "user" ? "#1e3a8a" : "#0f1117",
+                  border: "1px solid #2e3250",
+                }}
+              >
+                <Typography sx={{ fontSize: 12, color: "#dbeafe", fontFamily: "monospace", lineHeight: 1.6 }}>
+                  {msg.text}
+                </Typography>
+              </Box>
+            ))}
+            <Box ref={messagesEndRef} />
+          </Box>
+
+          <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
+            <TextField
+              fullWidth
+              size="small"
+              placeholder="Ask about this schema..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  sendQuery();
+                }
+              }}
+              InputProps={{
+                sx: {
+                  fontSize: 12,
+                  fontFamily: "monospace",
+                  bgcolor: "#0f1117",
+                  color: "#e2e8f0",
+                  "& fieldset": { borderColor: "#2e3250" },
+                },
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={sendQuery}
+              sx={{
+                fontFamily: "monospace",
+                textTransform: "none",
+                bgcolor: "#2563eb",
+                "&:hover": { bgcolor: "#1d4ed8" },
+              }}
+            >
+              Send
+            </Button>
           </Box>
         </Box>
 
