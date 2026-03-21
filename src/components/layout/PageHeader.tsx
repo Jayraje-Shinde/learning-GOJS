@@ -40,20 +40,7 @@ export default function PageHeader({ title, subtitle, actions }: PageHeaderProps
         </Box>
       </Box>
 
-      <Snackbar
-        open={toastOpen}
-        autoHideDuration={2200}
-        onClose={() => setToastOpen(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <Alert
-          severity="info"
-          onClose={() => setToastOpen(false)}
-          sx={{ bgcolor: "#1a1d27", color: "#e2e8f0", border: "1px solid #2e3250" }}
-        >
-          {toastMessage}
-        </Alert>
-      </Snackbar>
-    <Box />
+      {actions && <Box>{actions}</Box>}
+    </Box>
   );
 }

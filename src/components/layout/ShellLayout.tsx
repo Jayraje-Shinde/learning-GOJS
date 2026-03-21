@@ -3,7 +3,6 @@ import {
   Box, Drawer, List, ListItemButton,
   ListItemText, Typography, Divider, Chip, Tooltip,
 } from "@mui/material";
-import StorageIcon from "@mui/icons-material/Storage";
 
 import ERDiagramPage from "../../pages/ERDiagramPage";
 import AISummaryPage from "../../pages/AISummaryPage";
@@ -52,7 +51,7 @@ export default function ShellLayout() {
       >
         {/* Logo */}
         <Box sx={{ px: 2.5, py: 2.5, display: "flex", alignItems: "center", gap: 1 }}>
-          <StorageIcon sx={{ color: "#818cf8", fontSize: 22 }} />
+         
           <Typography
             sx={{
               fontFamily: "'JetBrains Mono', monospace",
