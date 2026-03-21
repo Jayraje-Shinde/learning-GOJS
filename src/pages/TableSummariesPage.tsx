@@ -7,10 +7,10 @@ import PageHeader from "../components/layout/PageHeader";
 import { mockTables } from "../data/mockData";
 
 const CONSTRAINT_COLORS: Record<string, { bg: string; text: string }> = {
-  "PRIMARY KEY": { bg: "#2d2200",  text: "#f59e0b" },
-  "FOREIGN KEY": { bg: "#0d2918",  text: "#34d399" },
-  "UNIQUE":      { bg: "#1a1040",  text: "#a78bfa" },
-  "CHECK":       { bg: "#1a1a2e",  text: "#60a5fa" },
+  "PRIMARY KEY": { bg: "#2d2200", text: "#f59e0b" },
+  "FOREIGN KEY": { bg: "#0d2918", text: "#34d399" },
+  "UNIQUE": { bg: "#1a1040", text: "#a78bfa" },
+  "CHECK": { bg: "#1a1a2e", text: "#60a5fa" },
 };
 
 export default function TableSummariesPage() {
@@ -26,8 +26,8 @@ export default function TableSummariesPage() {
   const avgCompleteness =
     table.columns.reduce((sum, c) => sum + c.completeness, 0) / table.columns.length;
 
-  const pkColumns  = table.columns.filter((c) => c.isPK);
-  const fkColumns  = table.columns.filter((c) => c.isFK);
+  const pkColumns = table.columns.filter((c) => c.isPK);
+  const fkColumns = table.columns.filter((c) => c.isFK);
   const reqColumns = table.columns.filter((c) => c.required);
   const optColumns = table.columns.filter((c) => !c.required);
 
@@ -94,7 +94,7 @@ export default function TableSummariesPage() {
         </Box>
 
         {/* ── Main detail area ──────────────────────── */}
-        <Box sx={{ flex: 1, overflow: "auto", p: 3, display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box sx={{ flex: 1, overflow: "auto", p: 3, minHeight: 0, display: "flex", flexDirection: "column", gap: 2 }}>
 
           {/* Table title */}
           <Box>
@@ -112,7 +112,7 @@ export default function TableSummariesPage() {
               bgcolor: "#1a1d27",
               border: "1px solid #2e3250",
               borderRadius: 2,
-              overflow: "hidden",
+
             }}
           >
             {/* Purpose summary */}
@@ -128,10 +128,10 @@ export default function TableSummariesPage() {
             {/* Quick stats */}
             <Box sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", borderBottom: "1px solid #1e2235" }}>
               {[
-                { label: "PRIMARY KEYS", value: pkColumns.length,  color: "#f59e0b" },
-                { label: "FOREIGN KEYS", value: fkColumns.length,  color: "#34d399" },
-                { label: "REQUIRED",     value: reqColumns.length, color: "#60a5fa" },
-                { label: "OPTIONAL",     value: optColumns.length, color: "#7c87a6" },
+                { label: "PRIMARY KEYS", value: pkColumns.length, color: "#f59e0b" },
+                { label: "FOREIGN KEYS", value: fkColumns.length, color: "#34d399" },
+                { label: "REQUIRED", value: reqColumns.length, color: "#60a5fa" },
+                { label: "OPTIONAL", value: optColumns.length, color: "#7c87a6" },
               ].map((stat, i, arr) => (
                 <Box
                   key={stat.label}
@@ -242,7 +242,6 @@ export default function TableSummariesPage() {
               bgcolor: "#1a1d27",
               border: "1px solid #2e3250",
               borderRadius: 2,
-              overflow: "hidden",
             }}
           >
             {/* Header */}
