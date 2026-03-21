@@ -1,5 +1,15 @@
-import { Box, Typography } from "@mui/material";
-import type { ReactNode } from "react";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Tooltip,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import DataObjectIcon from "@mui/icons-material/DataObject";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import TableViewIcon from "@mui/icons-material/TableView";
+import { useState, type ReactNode } from "react";
 
 interface PageHeaderProps {
   title: string;
@@ -39,7 +49,21 @@ export default function PageHeader({ title, subtitle, actions }: PageHeaderProps
           </Typography>
         </Box>
       </Box>
-      {actions && <Box>{actions}</Box>}
-    </Box>
+
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={2200}
+        onClose={() => setToastOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          severity="info"
+          onClose={() => setToastOpen(false)}
+          sx={{ bgcolor: "#1a1d27", color: "#e2e8f0", border: "1px solid #2e3250" }}
+        >
+          {toastMessage}
+        </Alert>
+      </Snackbar>
+    </>
   );
 }
