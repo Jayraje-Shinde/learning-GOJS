@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  Box, Typography, Chip, LinearProgress, Divider, TextField, InputAdornment,
+  Box, Typography, Chip, LinearProgress, TextField, InputAdornment,
 } from "@mui/material";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import SearchIcon from "@mui/icons-material/Search";
@@ -9,15 +9,35 @@ import LinkIcon from "@mui/icons-material/Link";
 import PageHeader from "../components/layout/PageHeader";
 import { mockTables } from "../data/mockData";
 
-export default function TableSummariesPage() {
+interface TableSummariesPageProps {
+  drilldown?: { tableName: string; columnName?: string } | null;
+  onDrilldownConsumed?: () => void;
+}
+
+export default function TableSummariesPage({ drilldown, onDrilldownConsumed }: TableSummariesPageProps) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(mockTables[0].name);
+  const [columnFilter, setColumnFilter] = useState("");
+
+  useEffect(() => {
+    if (!drilldown) return;
+
+    setSelected(drilldown.tableName);
+    setSearch(drilldown.tableName);
+    setColumnFilter(drilldown.columnName ?? "");
+    onDrilldownConsumed?.();
+  }, [drilldown, onDrilldownConsumed]);
 
   const filtered = mockTables.filter((t) =>
     t.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const table = mockTables.find((t) => t.name === selected)!;
+
+  const visibleColumns = useMemo(() => {
+    if (!columnFilter) return table.columns;
+    return table.columns.filter((col) => col.name.toLowerCase().includes(columnFilter.toLowerCase()));
+  }, [table.columns, columnFilter]);
 
   const avgCompleteness =
     table.columns.reduce((sum, c) => sum + c.completeness, 0) / table.columns.length;
@@ -69,7 +89,10 @@ export default function TableSummariesPage() {
             {filtered.map((t) => (
               <Box
                 key={t.name}
-                onClick={() => setSelected(t.name)}
+                onClick={() => {
+                  setSelected(t.name);
+                  setColumnFilter("");
+                }}
                 sx={{
                   px: 2,
                   py: 1.2,
@@ -102,6 +125,11 @@ export default function TableSummariesPage() {
               <Typography sx={{ fontSize: 11, color: "#4f5a8a", fontFamily: "monospace" }}>
                 {table.rowCount.toLocaleString()} rows · {table.columns.length} columns · avg completeness {avgCompleteness.toFixed(1)}%
               </Typography>
+              {columnFilter && (
+                <Typography sx={{ fontSize: 10, color: "#60a5fa", fontFamily: "monospace", mt: 0.6 }}>
+                  Filtered to column: {columnFilter}
+                </Typography>
+              )}
             </Box>
           </Box>
 
@@ -134,7 +162,7 @@ export default function TableSummariesPage() {
             </Box>
 
             {/* Column rows */}
-            {table.columns.map((col, i) => (
+            {visibleColumns.map((col, i) => (
               <Box
                 key={col.name}
                 sx={{
@@ -144,7 +172,7 @@ export default function TableSummariesPage() {
                   px: 2,
                   py: 1.2,
                   alignItems: "center",
-                  borderBottom: i < table.columns.length - 1 ? "1px solid #1e2235" : "none",
+                  borderBottom: i < visibleColumns.length - 1 ? "1px solid #1e2235" : "none",
                   bgcolor: col.isPK ? "#1c244080" : col.isFK ? "#1c293280" : "transparent",
                   "&:hover": { bgcolor: "#1e2235" },
                 }}
